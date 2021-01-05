@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- Compiled and minified CSS -->
+
     <link rel="stylesheet" href="/assets/css/syntax_highlighting.css">
+    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -30,20 +33,152 @@
 
     <main style="padding-top: 5px; padding-bottom: 2em">
         <style>
-    .showcase {
+    #search-form {
+        margin: 0 auto;
+    }
+
+    #showcase {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    #showcase .card {
+        width: 30%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
 </style>
 
-<div class="showcase">
-    
-</div>
-    </main>
+<div class="container">
+    <form id="search-form">
+        <div class="row">
+            <div class="input-field col s10">
+                <input id="search-query" type="text" class="validate" placeholder="">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s2">
+                <button
+                    class="btn waves-effect waves-light blue darken-1"
+                    type="submit" name="action">Search</button>
+            </div>
+        </div>
+    </form>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <main id="showcase"></main>
+</div>
+
+
+<script>
+    const cardsJson = `
+    {
+    "title": "Python package",
+    "description": "A super simple template to instantly create python packages from scratch.",
+    "icons": ["https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png","https://symbols.getvecta.com/stencil_80/57_flask-icon.eaaa141ab4.svg"],
+    "link": "/python-package.html"
+    },
+    
+    {
+    "title": "Vuejs chrome extension",
+    "description": "Allow you to develop a full chrome extension, with with templating, routing... using Vuejs",
+    "icons": ["https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_vue_icon_130078.png"],
+    "link": "/vue-chrome-extension%20copy%202.html"
+    },
+    
+    {
+    "title": "Vuejs chrome extension",
+    "description": "Allow you to develop a full chrome extension, with with templating, routing... using Vuejs",
+    "icons": ["https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_vue_icon_130078.png"],
+    "link": "/vue-chrome-extension%20copy%203.html"
+    },
+    
+    {
+    "title": "Vuejs chrome extension",
+    "description": "Allow you to develop a full chrome extension, with with templating, routing... using Vuejs",
+    "icons": ["https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_vue_icon_130078.png"],
+    "link": "/vue-chrome-extension%20copy.html"
+    },
+    
+    {
+    "title": "Vuejs chrome extension",
+    "description": "Allow you to develop a full chrome extension, with with templating, routing... using Vuejs",
+    "icons": ["https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_vue_icon_130078.png"],
+    "link": "/vue-chrome-extension.html"
+    },
+    `.trim().slice(0, -1);
+
+    const cards = JSON.parse(`[${cardsJson}]`);
+    console.log(cards);
+
+    function similitudeScore(search, base) {
+        if (!base) return 0;
+
+        const normalizedSearch = search.toLowerCase().replace(/([^\w]|_)/g, " ").replace(/\s+/g, " ").trim().split(" ");
+        const normalizedBase = base.toLowerCase().replace(/([^\w]|_)/g, " ").replace(/\s+/g, " ").trim();
+        let score = 0;
+        for (let word of normalizedSearch) {
+            if (normalizedBase.includes(word)) {
+                score += 1;
+            }
+        }
+        return score;
+    }
+
+    function queryScore(query, card) {
+        let score = 0;
+        score += 2 * similitudeScore(query, card.title);
+        score += 1 * similitudeScore(query, card.description);
+        return score;
+    }
+
+    function displayCards(cards) {
+        const showcase = document.getElementById("showcase");
+        showcase.innerHTML = "";
+        for (let card of cards) {
+            let icons = "";
+            for (let icon of (card.icons || [])) {
+                icons += `<img src="${icon}" alt="${icon}" style="max-height: 4em; max-width: 4em">`;
+            }
+            showcase.innerHTML += `
+            <div class="card small">
+                <div class="card-content">
+                    <h2 class="card-title">${card.title}</h2>
+                    <div style="display: flex">${icons}</div>
+                    <p>${card.description}</p>
+                </div>
+
+                <footer class="card-action">
+                    <a href="${card.link}">Use template</a>
+                </footer>
+            </div>
+            `;
+        }
+    }
+
+    function submitSearch(evt) {
+        const searchInput = document.querySelector('#search-query');
+        const query = searchInput.value;
+
+        // workout search score for all cards
+        const results = cards
+            .map(card => ({ card, score: queryScore(query, card) }))
+            .filter(result => result.score > 0)
+            .sort((result1, result2) => (result1.score < result2.score) ? -1 : 1)
+            .map(result => result.card);
+
+        displayCards(results);
+
+        // clear input after query has been done
+        searchInput.value = "";
+        evt.preventDefault();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        displayCards(cards);
+        document.getElementById('search-form').addEventListener('submit', submitSearch);
+    })
+</script>
+    </main>
 </body>
 
 </html>

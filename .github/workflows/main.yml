@@ -24,8 +24,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1.61.1
+        with:
+          ruby-version: 2.7
+          
+      - name: Install build dependencies
+        run: bundle install
+      
+      - name: Build static website
+        run: bundle exec jekyll build
+        
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: _site # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+      
+      
 
-      - name: Build and Publish
-        uses: helaili/jekyll-action@2.0.4
-        env:
-          JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
+      

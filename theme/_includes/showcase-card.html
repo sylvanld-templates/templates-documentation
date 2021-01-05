@@ -1,0 +1,16 @@
+<article
+    style="width: 30%; padding: 8px; margin: 8px; box-sizing: border-box; border: solid 1px {{site.palette.secondary.color}}">
+    <header>
+        <h2>{{card.title}}</h2>
+        {% for icon in card.icons %}
+        <img src="{{icon}}" alt="{{icon}}" style="max-width: 4em; max-height: 4em;">
+        {% endfor %}
+    </header>
+
+    <p>{{card.description}}</p>
+
+    <footer>
+        <button class="waves-effect waves-light btn {{site.palette.primary.color}} {{site.palette.primary.shade}}">Use
+            template</button>
+    </footer>
+</article>

@@ -2,4 +2,16 @@
 layout: default
 ---
 
-{{content}}
+<style>
+    .showcase {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>
+
+<div class="showcase">
+    {% for card in page.cards %}
+    {% include showcase-card.html %}
+    {% endfor %}
+</div>

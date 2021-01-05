@@ -3,6 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: showcase
+search_placeholder: Browse templates
 cards:
   - title: Flask Rest-API
     icons:

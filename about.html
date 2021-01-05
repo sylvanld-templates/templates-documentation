@@ -49,7 +49,16 @@
         <nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
     <ul id="table-of-contents">
     <ul id="toc" class="sidenav-close">
-<li class="toc-entry toc-h1"><a href="#python-package">Python package</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-use-these-templates">How to use these templates</a>
+<ul class="browser-default">
+<li class="toc-entry toc-h3"><a href="#requirements">Requirements</a>
+<ul class="browser-default">
+<li class="toc-entry toc-h4"><a href="#install-git-improved">Install git-improved</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#create-a-project-from-template">Create a project from template</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </nav>
@@ -68,11 +77,33 @@
     });
 </script>
 
-<main class="container"><h1 id="python-package">Python package</h1>
+<main class="container"><h2 id="how-to-use-these-templates">How to use these templates</h2>
 
-<blockquote>
-  <p>A beautiful template to instantly create python packages from scratch</p>
-</blockquote>
+<p>Templates documented on this site are intended to be installed using <a href="">git-improved</a>.</p>
+
+<h3 id="requirements">Requirements</h3>
+
+<h4 id="install-git-improved">Install <code class="language-html highlighter-rouge">git-improved</code></h4>
+
+<p>Once installed, <code class="language-html highlighter-rouge">git-improved</code> extend git by providing a few additionals commands.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>pip <span class="nb">install </span>git-improved
+</code></pre></div></div>
+
+<h3 id="create-a-project-from-template">Create a project from template</h3>
+
+<p>To use one of theses templates, you must first install it locally. For example :</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>git template install python/api https://github.com/path/to/repo.git
+</code></pre></div></div>
+
+<p><strong>In this example</strong></p>
+
+<ul>
+  <li>We install the template from git repo: https://github.com/path/to/repo.git</li>
+  <li>The template will be given the alias <code class="language-html highlighter-rouge">python/api</code></li>
+</ul>
+
 </main>
     </main>
 </body>

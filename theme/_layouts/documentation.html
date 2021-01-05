@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
+    {% include toc.html %}
+</nav>
+
+<a href="#" data-target="slide-out" style="position: absolute; margin: 8px"
+    class="sidenav-trigger btn waves-effect waves-light {{site.palette.primary.color}} {{site.palette.primary.shade}}">
+    <i class="material-icons">menu</i>
+</a>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const options = {};
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, options);
+    });
+</script>
+
+<main class="container">{{content}}</main>

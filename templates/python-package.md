@@ -1,5 +1,6 @@
 ---
 layout: template
+title: Python package
 description: A super simple template to instantly create python packages from scratch.
 icons:
     - https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png

@@ -21,10 +21,32 @@ collections:
   templates:
     output: true
 
+plugins:
+  - jekyll-toc
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      toc: true
+
+menu_entries:
+  - title: "Browse templates"
+    link: "/"
+  - title: "About"
+    link: "/about"
+
+toc:
+  list_class: sidenav-close
+  sublist_class: browser-default
+  min_level: 1
+  max_level: 4
+
 markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
+  parse_block_html: true
   syntax_highlighter_opts:
     default_lang: html
     css_class   : 'syntax'

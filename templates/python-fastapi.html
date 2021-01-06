@@ -65,8 +65,17 @@
     <ul id="toc" class="sidenav-close">
 <li class="toc-entry toc-h1"><a href="#python-fastapi">Python FastAPI</a>
 <ul class="browser-default">
-<li class="toc-entry toc-h2"><a href="#installation">Installation</a></li>
-<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#quickstart">Quickstart</a>
+<ul class="browser-default">
+<li class="toc-entry toc-h3"><a href="#requirements">Requirements</a></li>
+<li class="toc-entry toc-h3"><a href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#usage">Usage</a>
+<ul class="browser-default">
+<li class="toc-entry toc-h3"><a href="#develop">Develop</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -93,18 +102,42 @@
   <p>Python self-documented REST API using FastAPI.</p>
 </blockquote>
 
-<h2 id="installation">Installation</h2>
+<h2 id="quickstart">Quickstart</h2>
+
+<h3 id="requirements">Requirements</h3>
+
+<ul>
+  <li><strong>python &gt;= 3.6</strong></li>
+  <li><strong>pipenv</strong>: to manage python dependencies during development.</li>
+  <li><strong><a href="https://github.com/sylvanld/git-improved">git-improved</a></strong>: to install and use template</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<ul>
+  <li>First, install this template locally using <a href="https://github.com/sylvanld/git-improved">git improved</a>.</li>
+</ul>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>git template install <span class="nt">&lt;alias&gt;</span> https://github.com/sylvanld-templates/python-api
 </code></pre></div></div>
 
-<h2 id="usage">Usage</h2>
-
-<p>To instanciate this template</p>
+<ul>
+  <li>Then you can initialize a project from this template</li>
+</ul>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>git setup <span class="nt">&lt;directory&gt;</span> --template <span class="nt">&lt;alias&gt;</span>
 </code></pre></div></div>
 
+<h2 id="usage">Usage</h2>
+
+<h3 id="develop">Develop</h3>
+
+<ul>
+  <li>Start server in development mode</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>pipenv run serve
+</code></pre></div></div>
 </main>
     </main>
 </body>

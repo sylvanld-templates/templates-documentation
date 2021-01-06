@@ -12,17 +12,34 @@ icons:
 
 > Python self-documented REST API using FastAPI.
 
-## Installation
+## Quickstart
+
+### Requirements
+
+- **python >= 3.6**
+- **pipenv**: to manage python dependencies during development.
+- **[git-improved](https://github.com/sylvanld/git-improved)**: to install and use template
+
+### Installation
+
+* First, install this template locally using [git improved](https://github.com/sylvanld/git-improved).
 
 ```
 git template install <alias> {{page.repository}}
 ```
 
-## Usage
-
-To instanciate this template
+* Then you can initialize a project from this template
 
 ```
 git setup <directory> --template <alias>
 ```
 
+## Usage
+
+### Develop
+
+* Start server in development mode
+
+```
+pipenv run serve
+```

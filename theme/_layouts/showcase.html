@@ -4,7 +4,7 @@ layout: default
 
 <style>
     #search-form {
-        margin: 0 auto;
+        margin: 15px auto 0 auto;
     }
 
     #showcase {
@@ -13,10 +13,22 @@ layout: default
         justify-content: center;
     }
 
-    #showcase .card {
-        width: 30%;
-        padding: 8px;
-        box-sizing: border-box;
+    @media screen and (max-width: 740px) {
+        #showcase .card {
+            width: 100%
+        }
+    }
+
+    @media screen and (min-width: 740px) {
+        #showcase .card {
+            width: 50%
+        }
+    }
+
+    @media screen and (min-width: 1540px) {
+        #showcase .card {
+            width: 30%
+        }
     }
 </style>
 
@@ -45,7 +57,8 @@ layout: default
     "title": {% if page.title %}{{page.title | jsonify}}{% else %}""{% endif %},
     "description": {% if page.description %}{{page.description | jsonify}}{% else %}""{% endif %},
     "icons": {% if page.icons %}{{page.icons | jsonify}}{% else %}[]{% endif %},
-    "link": {{page.url | jsonify}}
+    "link": {{page.url | jsonify}},
+    "repository": {% if page.repository %}{{page.repository | jsonify}}{% else %}null{% endif %}
     },
     {% endif %}{% endfor %}`.trim().slice(0, -1);
 
@@ -81,6 +94,8 @@ layout: default
             for (let icon of (card.icons || [])) {
                 icons += `<img src="${icon}" alt="${icon}" style="max-height: 4em; max-width: 4em">`;
             }
+
+            const copyRepoLink = card.repository ? `<a href="#" class="btn waves-effect waves-light {{site.palette.ternary.color}} {{site.palette.ternary.shade}} right" data-copy="${card.repository}">Copy reference</a>` : '';
             showcase.innerHTML += `
             <div class="card small">
                 <div class="card-content">
@@ -90,11 +105,13 @@ layout: default
                 </div>
 
                 <footer class="card-action">
-                    <a href="${card.link}">Use template</a>
+                    <a class="btn waves-effect waves-light {{site.palette.primary.color}} {{site.palette.primary.shade}}" href="${card.link}">Documentation</a>
+                    ${copyRepoLink}
                 </footer>
             </div>
             `;
         }
+        reloadListeners("#showcase");
     }
 
     function submitSearch(evt) {

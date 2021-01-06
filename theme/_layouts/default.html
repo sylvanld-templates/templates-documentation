@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- custom javascript -->
+    <script src="/assets/js/clipboard.js"></script>
+    <!--<script src="/assets/js/controllers.js"></script>-->
 
     <style>
         ul>li {
@@ -30,9 +33,9 @@
         <nav style="position: relative; padding: 0 8px"
             class="{{site.palette.primary.color}} {{site.palette.primary.shade}}">
             <div class="nav-wrapper">
-                <a href="/" class="brand-logo left" style="display: flex; align-items: center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Template_icon.svg"
-                        alt="git-template-icon" style="max-height: 30px; margin-right: 0.5em">
+                <a href="/" class="brand-logo left" style="display: flex; align-items: center; width: 300px;">
+                    <img src="/assets/img/project.svg" alt="git-template-icon"
+                        style="max-height: 30px; margin-right: 0.5em">
                     Git Templates
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -48,5 +51,58 @@
         {{content}}
     </main>
 </body>
+
+<script>
+    function copyDataToClipboard() {
+        const dataToCopy = this.getAttribute("data-copy");
+        copyTextToClipboard(dataToCopy);
+    }
+
+    /*
+    *   Helpers functions
+    */
+    function bind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        [...nodeList].map(elt => elt.addEventListener('click', listener));
+    }
+
+    function unbind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            console.log(parent)
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            console.log('fallback to list');
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        console.log(nodeList);
+        [...nodeList].map(elt => elt.removeEventListener('click', listener));
+    }
+
+    /*
+    *   Function to cleanly (re)bound controllers listeners
+    */
+    function reloadListeners(selector) {
+        // workout root
+        const parent = selector ? document.querySelectorAll(selector) : document;
+        console.log('reload controllers in element', parent);
+
+        // bind copyToCliboard to copiables elements
+        unbind(parent, '[data-copy]', copyDataToClipboard);
+        bind(parent, '[data-copy]', copyDataToClipboard);
+    }
+
+    /*
+    *   When DOM is loaded, bind all listeners
+    */
+    document.addEventListener('DOMContentLoaded', () => {
+        reloadListeners();
+    })
+</script>
 
 </html>

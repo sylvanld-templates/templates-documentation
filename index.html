@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- custom javascript -->
+    <script src="/assets/js/clipboard.js"></script>
+    <!--<script src="/assets/js/controllers.js"></script>-->
 
     <style>
         ul>li {
@@ -30,9 +33,9 @@
         <nav style="position: relative; padding: 0 8px"
             class="blue darken-1">
             <div class="nav-wrapper">
-                <a href="/" class="brand-logo left" style="display: flex; align-items: center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Template_icon.svg"
-                        alt="git-template-icon" style="max-height: 30px; margin-right: 0.5em">
+                <a href="/" class="brand-logo left" style="display: flex; align-items: center; width: 300px;">
+                    <img src="/assets/img/project.svg" alt="git-template-icon"
+                        style="max-height: 30px; margin-right: 0.5em">
                     Git Templates
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -49,7 +52,7 @@
     <main style="padding-top: 50px; padding-bottom: 2em">
         <style>
     #search-form {
-        margin: 0 auto;
+        margin: 15px auto 0 auto;
     }
 
     #showcase {
@@ -58,10 +61,22 @@
         justify-content: center;
     }
 
-    #showcase .card {
-        width: 30%;
-        padding: 8px;
-        box-sizing: border-box;
+    @media screen and (max-width: 740px) {
+        #showcase .card {
+            width: 100%
+        }
+    }
+
+    @media screen and (min-width: 740px) {
+        #showcase .card {
+            width: 50%
+        }
+    }
+
+    @media screen and (min-width: 1540px) {
+        #showcase .card {
+            width: 30%
+        }
     }
 </style>
 
@@ -90,14 +105,16 @@
     "title": "Python package",
     "description": "A super simple template to instantly create python packages from scratch.",
     "icons": ["https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png","https://symbols.getvecta.com/stencil_80/57_flask-icon.eaaa141ab4.svg"],
-    "link": "/templates/python-package.html"
+    "link": "/templates/python-package.html",
+    "repository": null
     },
     
     {
     "title": "Vuejs chrome extension",
     "description": "Allow you to develop a full chrome extension, with with templating, routing... using Vuejs",
     "icons": ["https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_vue_icon_130078.png"],
-    "link": "/templates/vue-chrome-extension.html"
+    "link": "/templates/vue-chrome-extension.html",
+    "repository": "https://github.com/sylvanld-templates/templates-documentation"
     },
     `.trim().slice(0, -1);
 
@@ -133,6 +150,8 @@
             for (let icon of (card.icons || [])) {
                 icons += `<img src="${icon}" alt="${icon}" style="max-height: 4em; max-width: 4em">`;
             }
+
+            const copyRepoLink = card.repository ? `<a href="#" class="btn waves-effect waves-light pink darken-3 right" data-copy="${card.repository}">Copy reference</a>` : '';
             showcase.innerHTML += `
             <div class="card small">
                 <div class="card-content">
@@ -142,11 +161,13 @@
                 </div>
 
                 <footer class="card-action">
-                    <a href="${card.link}">Use template</a>
+                    <a class="btn waves-effect waves-light blue darken-1" href="${card.link}">Documentation</a>
+                    ${copyRepoLink}
                 </footer>
             </div>
             `;
         }
+        reloadListeners("#showcase");
     }
 
     function submitSearch(evt) {
@@ -174,5 +195,58 @@
 </script>
     </main>
 </body>
+
+<script>
+    function copyDataToClipboard() {
+        const dataToCopy = this.getAttribute("data-copy");
+        copyTextToClipboard(dataToCopy);
+    }
+
+    /*
+    *   Helpers functions
+    */
+    function bind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        [...nodeList].map(elt => elt.addEventListener('click', listener));
+    }
+
+    function unbind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            console.log(parent)
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            console.log('fallback to list');
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        console.log(nodeList);
+        [...nodeList].map(elt => elt.removeEventListener('click', listener));
+    }
+
+    /*
+    *   Function to cleanly (re)bound controllers listeners
+    */
+    function reloadListeners(selector) {
+        // workout root
+        const parent = selector ? document.querySelectorAll(selector) : document;
+        console.log('reload controllers in element', parent);
+
+        // bind copyToCliboard to copiables elements
+        unbind(parent, '[data-copy]', copyDataToClipboard);
+        bind(parent, '[data-copy]', copyDataToClipboard);
+    }
+
+    /*
+    *   When DOM is loaded, bind all listeners
+    */
+    document.addEventListener('DOMContentLoaded', () => {
+        reloadListeners();
+    })
+</script>
 
 </html>

@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- custom javascript -->
+    <script src="/assets/js/clipboard.js"></script>
+    <!--<script src="/assets/js/controllers.js"></script>-->
 
     <style>
         ul>li {
@@ -30,9 +33,9 @@
         <nav style="position: relative; padding: 0 8px"
             class="blue darken-1">
             <div class="nav-wrapper">
-                <a href="/" class="brand-logo left" style="display: flex; align-items: center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Template_icon.svg"
-                        alt="git-template-icon" style="max-height: 30px; margin-right: 0.5em">
+                <a href="/" class="brand-logo left" style="display: flex; align-items: center; width: 300px;">
+                    <img src="/assets/img/project.svg" alt="git-template-icon"
+                        style="max-height: 30px; margin-right: 0.5em">
                     Git Templates
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -47,7 +50,17 @@
     </header>
 
     <main style="padding-top: 50px; padding-bottom: 2em">
-        <nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
+        <style>
+    #markdown-container [id]::before {
+        content: '';
+        display: block;
+        height: 75px;
+        margin-top: -75px;
+        visibility: hidden;
+    }
+</style>
+
+<nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
     <ul id="table-of-contents">
     <ul id="toc" class="sidenav-close">
 <li class="toc-entry toc-h1"><a href="#accréditation-anonyme-et-coloriage-de-graphe">Accréditation anonyme et coloriage de graphe</a>
@@ -64,6 +77,7 @@
 <li class="toc-entry toc-h3"><a href="#pré-requis">Pré-requis</a></li>
 <li class="toc-entry toc-h3"><a href="#graphe-3-coloriable">Graphe 3 coloriable</a></li>
 <li class="toc-entry toc-h3"><a href="#utilisateur">Utilisateur</a></li>
+<li class="toc-entry toc-h3"><a href="#vérificateur">Vérificateur</a></li>
 </ul>
 </li>
 </ul>
@@ -73,7 +87,7 @@
 </nav>
 
 <a href="#" data-target="slide-out" style="top: 80px; left: 16px; position: fixed"
-    class="sidenav-trigger btn btn-floating waves-effect waves-light blue darken-1">
+    class="sidenav-trigger btn btn-floating waves-effect waves-light pink darken-3">
     <i class="material-icons">class</i>
 </a>
 
@@ -86,7 +100,7 @@
     });
 </script>
 
-<main class="container"><h1 id="accréditation-anonyme-et-coloriage-de-graphe">Accréditation anonyme et coloriage de graphe</h1>
+<main id="markdown-container" class="container"><h1 id="accréditation-anonyme-et-coloriage-de-graphe">Accréditation anonyme et coloriage de graphe</h1>
 
 <h2 id="preuve-à-divulgation-nulle-de-connaissance">Preuve à divulgation nulle de connaissance</h2>
 
@@ -179,7 +193,8 @@ nœud du graphe n’ait la même couleur que l’un des nœuds voisins.</p>
  |  envoyerMiseEnGage(self, verificateur)
 </code></pre></div></div>
 
-<p>### Verificateur</p>
+<h3 id="vérificateur">Vérificateur</h3>
+
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code> class Verificateur(graphe):
  |  
  |  Objet simulant un utilisateur permettant
@@ -200,5 +215,58 @@ nœud du graphe n’ait la même couleur que l’un des nœuds voisins.</p>
 </main>
     </main>
 </body>
+
+<script>
+    function copyDataToClipboard() {
+        const dataToCopy = this.getAttribute("data-copy");
+        copyTextToClipboard(dataToCopy);
+    }
+
+    /*
+    *   Helpers functions
+    */
+    function bind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        [...nodeList].map(elt => elt.addEventListener('click', listener));
+    }
+
+    function unbind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            console.log(parent)
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            console.log('fallback to list');
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        console.log(nodeList);
+        [...nodeList].map(elt => elt.removeEventListener('click', listener));
+    }
+
+    /*
+    *   Function to cleanly (re)bound controllers listeners
+    */
+    function reloadListeners(selector) {
+        // workout root
+        const parent = selector ? document.querySelectorAll(selector) : document;
+        console.log('reload controllers in element', parent);
+
+        // bind copyToCliboard to copiables elements
+        unbind(parent, '[data-copy]', copyDataToClipboard);
+        bind(parent, '[data-copy]', copyDataToClipboard);
+    }
+
+    /*
+    *   When DOM is loaded, bind all listeners
+    */
+    document.addEventListener('DOMContentLoaded', () => {
+        reloadListeners();
+    })
+</script>
 
 </html>

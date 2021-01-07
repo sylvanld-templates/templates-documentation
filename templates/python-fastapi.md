@@ -6,6 +6,7 @@ description: Python self-documented REST API using FastAPI.
 icons:
     - /assets/logo/python.svg
     - /assets/logo/fastapi.png
+    - /assets/logo/swagger.svg
 ---
 
 # Python FastAPI

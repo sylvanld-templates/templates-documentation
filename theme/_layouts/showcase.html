@@ -20,12 +20,20 @@ layout: default
     }
 
     @media screen and (min-width: 740px) {
+        #search-form {
+            max-width: 70%
+        }
+
         #showcase .card {
             width: 50%
         }
     }
 
     @media screen and (min-width: 1540px) {
+        #search-form {
+            max-width: 50%
+        }
+
         #showcase .card {
             width: 30%
         }
@@ -39,17 +47,14 @@ layout: default
 </style>
 
 <div class="container">
-    <form id="search-form">
-        <div class="row">
-            <div class="input-field col s10">
-                <input id="search-query" type="text" class="validate" placeholder="{{page.search_placeholder}}">
-                <label for="name">Name</label>
-            </div>
-            <div class="input-field col s2">
-                <button
-                    class="btn waves-effect waves-light {{site.palette.primary.color}} {{site.palette.primary.shade}}"
-                    type="submit" name="action">Search</button>
-            </div>
+    <form id="search-form" style="display: flex">
+        <div class="input-field" style="flex: 1; margin-right: 1em">
+            <input id="search-query" type="text" class="validate" placeholder="{{page.search_placeholder}}">
+            <label for="name">Name</label>
+        </div>
+        <div class="input-field col s2">
+            <button class="btn waves-effect waves-light {{site.palette.primary.color}} {{site.palette.primary.shade}}"
+                type="submit" name="action">Search</button>
         </div>
     </form>
 

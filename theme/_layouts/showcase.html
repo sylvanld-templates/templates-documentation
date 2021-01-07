@@ -30,6 +30,12 @@ layout: default
             width: 30%
         }
     }
+
+    .card-icon {
+        max-height: 4em;
+        max-width: 4em;
+        padding: 0.5em;
+    }
 </style>
 
 <div class="container">
@@ -92,7 +98,7 @@ layout: default
         for (let card of cards) {
             let icons = "";
             for (let icon of (card.icons || [])) {
-                icons += `<img src="${icon}" alt="${icon}" style="max-height: 4em; max-width: 4em">`;
+                icons += `<img src="${icon}" alt="${icon}" class="card-icon">`;
             }
 
             const copyRepoLink = card.repository ? `<a href="#" class="btn waves-effect waves-light {{site.palette.ternary.color}} {{site.palette.ternary.shade}} right" data-copy="${card.repository}">Copy reference</a>` : '';

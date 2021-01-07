@@ -78,6 +78,12 @@
             width: 30%
         }
     }
+
+    .card-icon {
+        max-height: 4em;
+        max-width: 4em;
+        padding: 0.5em;
+    }
 </style>
 
 <div class="container">
@@ -104,9 +110,17 @@
     {
     "title": "Python FastAPI",
     "description": "Python self-documented REST API using FastAPI.",
-    "icons": ["/assets/logo/python.svg","/assets/logo/fastapi.png"],
+    "icons": ["/assets/logo/python.svg","/assets/logo/fastapi.png","/assets/logo/swagger.svg"],
     "link": "/templates/python-fastapi.html",
     "repository": "https://github.com/sylvanld-templates/python-api"
+    },
+    
+    {
+    "title": "Python CLI package",
+    "description": "Python package that exposes command line scripts.",
+    "icons": ["/assets/logo/python.svg","/assets/logo/package.svg","/assets/logo/cli.svg"],
+    "link": "/templates/python-package.html",
+    "repository": "https://github.com/sylvanld-templates/python-package"
     },
     `.trim().slice(0, -1);
 
@@ -140,7 +154,7 @@
         for (let card of cards) {
             let icons = "";
             for (let icon of (card.icons || [])) {
-                icons += `<img src="${icon}" alt="${icon}" style="max-height: 4em; max-width: 4em">`;
+                icons += `<img src="${icon}" alt="${icon}" class="card-icon">`;
             }
 
             const copyRepoLink = card.repository ? `<a href="#" class="btn waves-effect waves-light pink darken-3 right" data-copy="${card.repository}">Copy reference</a>` : '';

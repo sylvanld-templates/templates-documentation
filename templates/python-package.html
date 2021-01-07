@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/assets/css/syntax_highlighting.css">
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- custom javascript -->
+    <script src="/assets/js/clipboard.js"></script>
+    <!--<script src="/assets/js/controllers.js"></script>-->
+
+    <style>
+        ul>li {
+            padding-left: 8px;
+        }
+
+        .highlight {
+            border-radius: 5px;
+            padding: 4px 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="position: fixed; left:0; right: 0">
+        <nav style="position: relative; padding: 0 8px"
+            class="blue darken-1">
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo left" style="display: flex; align-items: center; width: 300px;">
+                    <img src="/assets/img/project.svg" alt="git-template-icon"
+                        style="max-height: 30px; margin-right: 0.5em">
+                    Git Templates
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    
+                    <li><a href="/">Browse templates</a></li>
+                    
+                    <li><a href="/about">About</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: 50px; padding-bottom: 2em">
+        <style>
+    #markdown-container [id]::before {
+        content: '';
+        display: block;
+        height: 75px;
+        margin-top: -75px;
+        visibility: hidden;
+    }
+</style>
+
+<nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
+    <ul id="table-of-contents">
+    <ul id="toc" class="sidenav-close">
+</ul>
+</ul>
+</nav>
+
+<a href="#" data-target="slide-out" style="top: 80px; left: 16px; position: fixed"
+    class="sidenav-trigger btn btn-floating waves-effect waves-light pink darken-3">
+    <i class="material-icons">class</i>
+</a>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const options = {};
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, options);
+    });
+</script>
+
+<main id="markdown-container" class="container">
+</main>
+    </main>
+</body>
+
+<script>
+    function copyDataToClipboard() {
+        const dataToCopy = this.getAttribute("data-copy");
+        copyTextToClipboard(dataToCopy);
+    }
+
+    /*
+    *   Helpers functions
+    */
+    function bind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        [...nodeList].map(elt => elt.addEventListener('click', listener));
+    }
+
+    function unbind(parent, selector, listener) {
+        const nodeList = [];
+        try {
+            console.log(parent)
+            nodeList.push(...parent.querySelectorAll(selector));
+        } catch {
+            console.log('fallback to list');
+            [...parent].map(elt => nodeList.push(...elt.querySelectorAll(selector)));
+        }
+        console.log(nodeList);
+        [...nodeList].map(elt => elt.removeEventListener('click', listener));
+    }
+
+    /*
+    *   Function to cleanly (re)bound controllers listeners
+    */
+    function reloadListeners(selector) {
+        // workout root
+        const parent = selector ? document.querySelectorAll(selector) : document;
+        console.log('reload controllers in element', parent);
+
+        // bind copyToCliboard to copiables elements
+        unbind(parent, '[data-copy]', copyDataToClipboard);
+        bind(parent, '[data-copy]', copyDataToClipboard);
+    }
+
+    /*
+    *   When DOM is loaded, bind all listeners
+    */
+    document.addEventListener('DOMContentLoaded', () => {
+        reloadListeners();
+    })
+</script>
+
+</html>

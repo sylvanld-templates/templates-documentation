@@ -33,9 +33,10 @@ defaults:
 menu_entries:
   - title: "Browse templates"
     link: "/"
+    icon: search
   - title: "About"
     link: "/about"
-
+    icon: help
 toc:
   list_class: sidenav-close
   sublist_class: browser-default

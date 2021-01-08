@@ -1,0 +1,10 @@
+{% for item in site.menu_entries %}
+<li>
+    <a href="{{item.link}}">
+        {% if item.icon %}
+        <i class="material-icons left">{{item.icon}}</i>
+        {% endif %}
+        {{item.title}}
+    </a>
+</li>
+{% endfor %}

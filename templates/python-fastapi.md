@@ -9,10 +9,6 @@ icons:
     - /assets/logo/swagger.svg
 ---
 
-# Python FastAPI
-
-> Python self-documented REST API using FastAPI.
-
 ## Quickstart
 
 ### Requirements

@@ -10,24 +10,39 @@ layout: default
         margin-top: -75px;
         visibility: hidden;
     }
+
+    #markdown-container h1 {
+        font-size: 3.2rem;
+    }
+
+    #markdown-container h2 {
+        font-size: 2.9rem;
+        margin-left: 1rem;
+    }
+
+    #markdown-container h3 {
+        font-size: 2.6rem;
+        margin-left: 2rem;
+    }
+
+    #markdown-container h4 {
+        font-size: 2.3rem;
+        margin-left: 3rem;
+    }
+
+    #markdown-container h4 {
+        font-size: 2rem;
+        margin-left: 4rem;
+    }
 </style>
 
-<nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
+<main id="markdown-container" class="container">
+    <h1>{{page.title}}</h1>
+
+    <blockquote>{{page.description}}</blockquote>
+
+    <h2>Table of contents</h2>
     {% include toc.html %}
-</nav>
 
-<a href="#" data-target="slide-out" style="top: 80px; left: 16px; position: fixed"
-    class="sidenav-trigger btn btn-floating waves-effect waves-light {{site.palette.ternary.color}} {{site.palette.ternary.shade}}">
-    <i class="material-icons">class</i>
-</a>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const options = {};
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, options);
-    });
-</script>
-
-<main id="markdown-container" class="container">{{content}}</main>
+    {{content}}
+</main>

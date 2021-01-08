@@ -1,8 +1,7 @@
 ---
+title: How to use these templates ?
 layout: documentation
 ---
-
-## How to use these templates
 
 Templates documented on this site are intended to be installed using [git-improved]().
 

@@ -33,15 +33,14 @@
         <nav style="position: relative; padding: 0 8px"
             class="{{site.palette.primary.color}} {{site.palette.primary.shade}}">
             <div class="nav-wrapper">
-                <a href="/" class="brand-logo left" style="display: flex; align-items: center; width: 300px;">
-                    <img src="/assets/img/project.svg" alt="git-template-icon"
-                        style="max-height: 30px; margin-right: 0.5em">
-                    Git Templates
+                <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                <a href="/" class="brand-logo left"
+                    style="display: flex; height: 100%; align-items: center; width: 300px;">
+                    <img src="/assets/git_templates_icon.png" alt="git-template-icon"
+                        style="max-height: 40px; margin-right: 0.5em">
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    {% for item in site.menu_entries %}
-                    <li><a href="{{item.link}}">{{item.title}}</a></li>
-                    {% endfor %}
+                    {% include menu_items.html %}
                 </ul>
             </div>
         </nav>
@@ -51,6 +50,26 @@
         {{content}}
     </main>
 </body>
+
+
+<nav id="slide-out" class="sidenav" aria-label="Table of Contents" style="color: black; width: auto">
+    <ul>
+        <li style="max-height: 64px" class="{{site.palette.primary.color}} {{site.palette.primary.shade}}">
+            <img src="/assets/git_templates_icon.png" style="max-height: 40px; margin: 1em 0.5em">
+        </li>
+        {% include menu_items.html %}
+    </ul>
+</nav>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const options = {};
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, options);
+    });
+</script>
+
 
 <script>
     function copyDataToClipboard() {

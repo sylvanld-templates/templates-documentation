@@ -88,14 +88,28 @@
         margin-left: 2rem;
     }
 
-    #markdown-container h4 {
-        font-size: 2.3rem;
-        margin-left: 3rem;
+    console.log(codeBlocks);
+    : 2.3rem;
+    margin-left: 3rem;
     }
 
     #markdown-container h4 {
         font-size: 2rem;
         margin-left: 4rem;
+    }
+
+    #markdown-container .highlight {
+        overflow-x: auto;
+    }
+
+    #markdown-container ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+
+    #markdown-container ul>li {
+        list-style-type: disc;
+        list-style-position: inside;
     }
 </style>
 
@@ -113,6 +127,27 @@
     
 
 </main>
+
+<script>
+    function createCopyButton(code) {
+        const button = document.createElement("button");
+        button.classList.add("btn");
+        button.style.position = "absolute";
+        button.style.right = "0px";
+        button.style.top = "8px";
+        button.innerHTML = `<i class="material-icons">content_copy</i>`;
+        button.onclick = () => copyTextToClipboard(code);
+        return button;
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const codeBlocks = document.querySelectorAll(".highlight");
+        codeBlocks.forEach(block => {
+            const parent = block.parentElement;
+            parent.style.position = "relative";
+            parent.appendChild(createCopyButton(block.innerText));
+        })
+    })
+</script>
     </main>
 </body>
 

@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <header style="position: fixed; left:0; right: 0">
+    <header style="position: fixed; left:0; right: 0; z-index: 999">
         <nav style="position: relative; padding: 0 8px"
             class="blue darken-1">
             <div class="nav-wrapper">
@@ -66,7 +66,8 @@
 
     <main style="padding-top: 50px; padding-bottom: 2em">
         <style>
-    #markdown-container [id]::before {
+    /* Fix anchor padding introduced by navbar */
+    .markdown [id]::before {
         content: '';
         display: block;
         height: 75px;
@@ -74,66 +75,77 @@
         visibility: hidden;
     }
 
-    #markdown-container h1 {
+    /* Improve heading size (too large in materialize) */
+    .markdown h1 {
         font-size: 3.2rem;
     }
 
-    #markdown-container h2 {
+    .markdown h2 {
         font-size: 2.9rem;
         margin-left: 1rem;
     }
 
-    #markdown-container h3 {
+    .markdown h3 {
         font-size: 2.6rem;
         margin-left: 2rem;
     }
 
-    console.log(codeBlocks);
-    : 2.3rem;
-    margin-left: 3rem;
-    }
-
-    #markdown-container h4 {
+    .markdown h4 {
         font-size: 2rem;
         margin-left: 4rem;
     }
 
-    #markdown-container .highlight {
+    /* Fix overflow on code blocks */
+    .markdown .highlight {
         overflow-x: auto;
     }
 
-    #markdown-container ul {
-        list-style-type: disc;
-        list-style-position: inside;
+    /* Restore default list style for lists in markdown */
+
+    /* Display table of contents in floating mode if screen is large enough */
+    .markdown {
+        padding: 0 2em 20em 2em;
     }
 
-    #markdown-container ul>li {
-        list-style-type: disc;
-        list-style-position: inside;
+    @media screen and (min-width: 830px) {
+        .markdown {
+            position: absolute;
+            left: 20em;
+            right: 0;
+        }
+
+        .toc {
+            position: fixed;
+            top: 100px;
+            left: 2em;
+        }
     }
 </style>
 
-<main id="markdown-container" class="container">
-    <h1>Python FastAPI</h1>
 
+
+<main class="markdown">
+    <h1>Python FastAPI</h1>
     <blockquote>Python self-documented REST API using FastAPI.</blockquote>
 
-    <h2>Table of contents</h2>
-    <ul id="table-of-contents">
-    <ul id="toc" class="browser-default">
+    <aside class="toc">
+        <div>
+            <strong>Table of contents</strong>
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#quickstart">Quickstart</a>
-<ul class="browser-default">
+<ul>
 <li class="toc-entry toc-h3"><a href="#requirements">Requirements</a></li>
 <li class="toc-entry toc-h3"><a href="#installation">Installation</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#usage">Usage</a>
-<ul class="browser-default">
+<ul>
 <li class="toc-entry toc-h3"><a href="#develop">Develop</a></li>
 </ul>
 </li>
 </ul>
-</ul>
+        </div>
+    </aside>
 
     <h2 id="quickstart">Quickstart</h2>
 

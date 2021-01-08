@@ -3,7 +3,8 @@ layout: default
 ---
 
 <style>
-    #markdown-container [id]::before {
+    /* Fix anchor padding introduced by navbar */
+    .markdown [id]::before {
         content: '';
         display: block;
         height: 75px;
@@ -11,47 +12,65 @@ layout: default
         visibility: hidden;
     }
 
-    #markdown-container h1 {
+    /* Improve heading size (too large in materialize) */
+    .markdown h1 {
         font-size: 3.2rem;
     }
 
-    #markdown-container h2 {
+    .markdown h2 {
         font-size: 2.9rem;
         margin-left: 1rem;
     }
 
-    #markdown-container h3 {
+    .markdown h3 {
         font-size: 2.6rem;
         margin-left: 2rem;
     }
 
-    #markdown-container h4 {
+    .markdown h4 {
         font-size: 2rem;
         margin-left: 4rem;
     }
 
-    #markdown-container .highlight {
+    /* Fix overflow on code blocks */
+    .markdown .highlight {
         overflow-x: auto;
     }
 
-    #markdown-container ul {
-        list-style-type: disc;
-        list-style-position: inside;
+    /* Restore default list style for lists in markdown */
+
+    /* Display table of contents in floating mode if screen is large enough */
+    .markdown {
+        padding: 0 2em 20em 2em;
     }
 
-    #markdown-container ul>li {
-        list-style-type: disc;
-        list-style-position: inside;
+    @media screen and (min-width: 830px) {
+        .markdown {
+            position: absolute;
+            left: 20em;
+            right: 0;
+        }
+
+        .toc {
+            position: fixed;
+            top: 100px;
+            left: 2em;
+        }
     }
 </style>
 
-<main id="markdown-container" class="container">
-    <h1>{{page.title}}</h1>
 
+
+<main class="markdown">
+    <h1>{{page.title}}</h1>
     <blockquote>{{page.description}}</blockquote>
 
-    <h2>Table of contents</h2>
-    {% include toc.html %}
+    <aside class="toc">
+        <div>
+            <strong>Table of contents</strong>
+            {{content | toc_only}}
+        </div>
+    </aside>
 
     {{content}}
 </main>

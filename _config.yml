@@ -38,8 +38,6 @@ menu_entries:
     link: "/about"
     icon: help
 toc:
-  list_class: browser-default
-  sublist_class: browser-default
   min_level: 1
   max_level: 4
 
